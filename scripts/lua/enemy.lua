@@ -1,16 +1,41 @@
-local desiredPosition = CreateVector2(10, 1000)
+import 'Godot'
 
--- Calculate direction to move
-local direction = Vector2Subtract(desiredPosition, Enemy.Position)
-direction = Vector2Normalize(direction)
 
-GDPrint("Enemy Position: " .. tostring(Enemy.Position))
+function InitializeState()
+    initialized = true
+    GDPrint("Enemy initialized")
+    desiredX = 1000;
+    maxX = 1000;
+    minX = 100;
+    tolerance = 10.0;
+    step = 3;
 
--- Check if the two Vector2 instances are equal
-if desiredPosition == Enemy.Position then
-    GDPrint("The positions are equal")
-else
-    GDPrint("The positions are not equal")
-    -- Move the enemy
-    Enemy.Position = Vector2Lerp(Enemy.Position, desiredPosition, .1 * DELTA)
+    local x = Vector2(100, 20);
+    GDPrint(tostring(x));
 end
+
+
+function ProcessState(delta)
+    local fired = false;
+    local desiredPosition = CreateVector2(desiredX, 20)    
+    local distance = Vector2Distance(desiredPosition, Enemy.Position)
+    if distance <= tolerance then
+        if desiredX == maxX then
+            desiredX = minX
+            if not fired then
+                Enemy:FireBullet(-1, -1)
+                fired = true
+            end
+        else
+            desiredX = maxX
+            if not fired then
+                Enemy:FireBullet(-1, 0)
+                fired = true
+            end
+        end
+    else
+        -- Move the enemy
+        Enemy.Position = Vector2Lerp(Enemy.Position, desiredPosition, step * delta)
+    end
+end
+

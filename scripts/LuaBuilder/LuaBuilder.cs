@@ -23,6 +23,8 @@ public class LuaBuilder
         _lua.RegisterFunction("Vector2Subtract", typeof(WithVector).GetMethod("Vector2Subtract"));
         _lua.RegisterFunction("Vector2Normalize", typeof(WithVector).GetMethod("Vector2Normalize"));
         _lua.RegisterFunction("Vector2Lerp", typeof(WithVector).GetMethod("Vector2Lerp"));
+        _lua.RegisterFunction("Vector2MoveToward", typeof(WithVector).GetMethod("Vector2MoveToward"));
+        _lua.RegisterFunction("Vector2Distance", typeof(WithVector).GetMethod("Vector2Distance"));
         return this;
     }
 

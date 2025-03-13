@@ -22,6 +22,16 @@ public class WithVector
         return a.Lerp(b, t);
     }
 
+    public static Vector2 Vector2MoveToward(Vector2 current, Vector2 target, float maxDistanceDelta)
+    {
+        return current.MoveToward(target, maxDistanceDelta);
+    }
+
+    public static float Vector2Distance(Vector2 a, Vector2 b)
+    {
+        return a.DistanceTo(b);
+    }
+
     public static Vector3 CreateVector3(float x, float y, float z)
     {
         return new Vector3(x, y, z);
